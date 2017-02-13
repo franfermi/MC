@@ -1,0 +1,23 @@
+%{
+int palabra=0, numero=0;
+%}
+
+Numero	-?[0-9]+
+Palabra	[a-zA-Z]+
+
+%%
+"salir"		{salir();return 0;}
+{Palabra}	{printf("Se leyo la palabra : %s", yytext);palabra++;}
+{Numero}	{printf("Se leyo el numero : %d", atoi(yytext));numero++;}
+. printf("%s",yytext[0]);
+
+
+%%
+main(){
+	printf("Este programa, distingue entre numeros enteros y palabras.\nIntroduzca datos o escriba 'salir' para finalizar.\n");
+	yylex();
+}
+
+salir(){
+	printf("Se leyeron %d entradas de datos, de las cuales se reconocieron\n%d\tEnteros\ny\n%d\tPalabras.\n", (palabra+numero), numero, palabra);
+}
